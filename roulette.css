@@ -1,0 +1,19 @@
+table {
+    border: solid 3px black;
+}
+td {
+    font-size: 30px;
+    border: solid 1px black;
+    padding: 10px;
+    text-align: center;
+}
+#start {
+    margin-left: 17px;
+    margin-top: 20px;
+}
+.red{
+    background:#ff0000;
+}
+.orenge{
+    background:#00ffff;
+}
