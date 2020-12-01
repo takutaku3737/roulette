@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+   <meta charset="UTF-8">
+   <title>ルーレット</title>
+   <link rel="stylesheet" href="roulette.css">
+   
+   <script>
+        var interval_id;
+        
+        var rand = 1;
+        var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+        
+        var start;
+        var stop;
+        var reset;
+        
+        window.onload = function(){
+        
+            start = document.getElementById('start');
+            stop = document.getElementById('stop');
+            reset = document.getElementById('reset');
+            
+            stop.disabled = true
+            
+            start.addEventListener('click', start_roulette, false);
+            stop.addEventListener('click', stop_roulette, false);
+            reset.addEventListener('click', reset_roulette, false);
+        
+        }
+        
+        function start_roulette() {
+            
+            interval_id = setInterval(roulette_setInterval, 100);
+            
+            start.disabled = true;
+            stop.disabled = false;
+        }
+        
+        function roulette_setInterval() {
+            
+            var element = document.getElementById('num_' + array[rand]);
+            element.style.backgroundColor = '';
+            
+            rand = Math.floor(Math.random() * array.length);
+            var num_rand = document.getElementById('num_' + array[rand]);
+            num_rand.style.backgroundColor = '#f2a581';
+            
+        }
+        
+        function stop_roulette() {
+            
+            clearInterval(interval_id);
+            
+            //rand = Math.floor(Math.random() * array.length);となっている
+            var num_rand = document.getElementById('num_' + array[rand]);
+            num_rand.style.backgroundColor = 'orangered';
+            
+            array.splice(rand, 1);
+            rand = 0;
+            
+            start.disabled = false;
+            stop.disabled = true;
+            
+            if (array.length === 0) {
+                start.disabled = true;
+            }
+        }
+        
+        function reset_roulette() {
+            
+            clearInterval(interval_id);
+            
+            for (var i = 1; i <= 16; i++) {
+                var reset_element = document.getElementById('num_' + i);
+                reset_element.style.backgroundColor = '';
+            }
+            
+            stop.disabled = true;
+            start.disabled = false;
+            
+            array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+        }
+        
+    </script>
+</head>
+<body>
+    <table style="border-collapse: collapse">
+        <tr>
+            <td id="num_1">1</td>
+            <td id="num_2">2</td>
+            <td id="num_3">3</td>
+            <td id="num_4">4</td>
+        </tr>
+        <tr>
+            <td id="num_5">5</td>
+            <td id="num_6">6</td>
+            <td id="num_7">7</td>
+            <td id="num_8">8</td>
+        </tr>
+        <tr>
+            <td id="num_9">9</td>
+            <td id="num_10">10</td>
+            <td id="num_11">11</td>
+            <td id="num_12">12</td>
+        </tr>
+        <tr>
+            <td id="num_13">13</td>
+            <td id="num_14">14</td>
+            <td id="num_15">15</td>
+            <td id="num_16">16</td>
+        </tr>
+    </table>
+    <button id="start">スタート</button>
+    <button id="stop">ストップ</button>
+    <button id="reset">リセット</button>
+    
+</body>
+</html>
